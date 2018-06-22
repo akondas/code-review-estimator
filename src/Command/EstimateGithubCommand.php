@@ -10,12 +10,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class EstimateCommand extends Command
+final class EstimateGithubCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('estimate')
-            ->setDescription('Estimate cost of code review')
+        $this->setName('estimate:github')
+            ->setDescription('Estimate cost of code review for Github pull request')
             ->addArgument('path', InputArgument::REQUIRED, 'github pull request path, example: symfony/symfony/pull/27686')
         ;
     }
@@ -29,12 +29,7 @@ final class EstimateCommand extends Command
         $pr = $client->api('pull_request')->show($author, $repo, $number);
 
         if($output->isVerbose()) {
-            $output->writeln(sprintf('Commits: %s', $pr['commits']));
-            $output->writeln(sprintf('Additions: %s', $pr['additions']));
-            $output->writeln(sprintf('Deletions: %s', $pr['deletions']));
-            $output->writeln(sprintf('Changed files: %s', $pr['changed_files']));
-            $output->writeln(sprintf('Comments: %s', $pr['comments']));
-            $output->writeln(sprintf('Review comments: %s', $pr['review_comments']));
+            $this->outputPullRequestStats($output, $pr);
         }
 
         $modelManager = new ModelManager();
@@ -49,5 +44,15 @@ final class EstimateCommand extends Command
         ]]);
 
         $output->writeln(sprintf('Price for %s is: <info>$%s</info>', $input->getArgument('path'), round($prediction[0], 2)));
+    }
+
+    private function outputPullRequestStats(OutputInterface $output, array $pr): void
+    {
+        $output->writeln(sprintf('Commits: %s', $pr['commits']));
+        $output->writeln(sprintf('Additions: %s', $pr['additions']));
+        $output->writeln(sprintf('Deletions: %s', $pr['deletions']));
+        $output->writeln(sprintf('Changed files: %s', $pr['changed_files']));
+        $output->writeln(sprintf('Comments: %s', $pr['comments']));
+        $output->writeln(sprintf('Review comments: %s', $pr['review_comments']));
     }
 }
