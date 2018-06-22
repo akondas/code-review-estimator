@@ -1,0 +1,24 @@
+{
+    "name": "akondas/code-review-estimator",
+    "type": "project",
+    "description": "Estimate cost of code review",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arkadiusz Kondas",
+            "email": "arkadiusz.kondas@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "php-ai/php-ml": "^0.6.2",
+        "symfony/console": "^4.1",
+        "knplabs/github-api": "^2.8",
+        "php-http/guzzle6-adapter": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Estimator\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Estimator\Command\EstimateCommand;
+use Estimator\Command\FetchPullRequestsCommand;
+use Estimator\Command\TrainCommand;
+
+$application = new Application();
+$application->add(new EstimateCommand());
+$application->add(new FetchPullRequestsCommand());
+$application->add(new TrainCommand());
+$application->run();
