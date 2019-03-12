@@ -36,6 +36,6 @@ final class TrainCommand extends Command
         $modelManager = new ModelManager();
         $modelManager->saveToFile($estimator, __DIR__.'/../../data/model.dat');
 
-        $output->writeln('New model trained! :rocket:');
+        $output->writeln('New model trained! 🚀');
     }
 }

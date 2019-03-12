@@ -22,6 +22,11 @@ final class EstimateGithubCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if(!file_exists(__DIR__.'/../../data/model.dat')) {
+            $output->writeln('<error>Model not found. Did you do train it? (train commnad)');
+            return;
+        }
+
         [$author, $repo, , $number] = explode('/', $input->getArgument('path'));
         $client = new Client();
 

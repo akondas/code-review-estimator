@@ -22,6 +22,11 @@ final class EstimateWizardCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if(!file_exists(__DIR__.'/../../data/model.dat')) {
+            $output->writeln('<error>Model not found. Did you do train it? (train commnad)');
+            return;
+        }
+
         $helper = $this->getHelper('question');
         $commits = $helper->ask($input, $output, new Question('Commits: ', 0));
         $additions = $helper->ask($input, $output, new Question('Additions: ', 0));
