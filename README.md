@@ -21,7 +21,7 @@ Store your dataset in `data/code-reviews.csv
 ```
 > bin/console train
 R2: 0.90124676557598
-New model trained! :rocket:
+New model trained! 🚀
 ```
 
 ### Estimate Github PR
